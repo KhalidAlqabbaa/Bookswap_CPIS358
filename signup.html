@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="BookSwap: buy and sell used university books">
+    <title>BookSwap - Sign up</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <style type="text/css">
+        form { text-align: center; }
+    </style>
+    <script src="js/script.js"></script>
+    <script>
+        function signup() {
+            var name = document.forms["signupForm"]["name"].value;
+            var pass = document.forms["signupForm"]["password"].value;
+            var pass2 = document.forms["signupForm"]["password2"].value;
+
+            if (pass != pass2) {
+                window.alert("The passwords are not the same");
+                return false;
+            }
+            window.alert("Welcome " + name + "! Your account is ready");
+            return false;
+        }
+    </script>
+</head>
+<body>
+
+    <header id="top">
+        <h1>BookSwap</h1>
+        <nav>
+            Menu
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About us</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="signup.html">Sign up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="content">
+
+        <div class="banner">
+            <img src="images/banner.png" width="600" height="180" alt="BookSwap" usemap="#bookmap">
+            <map name="bookmap">
+                <area shape="rect" coords="440,120,580,165" href="about.html" alt="About us">
+            </map>
+        </div>
+
+        <section class="box">
+            <h2 style="text-align: center;">Sign up</h2>
+            <form name="signupForm" onsubmit="return signup()">
+                <p>
+                    <label for="name">Name:</label><br>
+                    <input type="text" id="name" name="name" required onfocus="highlight(this)" onblur="normal(this)">
+                </p>
+                <p>
+                    <label for="email">Email:</label><br>
+                    <input type="email" id="email" name="email" required onfocus="highlight(this)" onblur="normal(this)">
+                </p>
+                <p>
+                    <label for="major">Major:</label><br>
+                    <select id="major" name="major">
+                        <option>Information Systems</option>
+                        <option>Computer Science</option>
+                        <option>Information Technology</option>
+                    </select>
+                </p>
+                <p>
+                    <label for="password">Password:</label><br>
+                    <input type="password" id="password" name="password" required onfocus="highlight(this)" onblur="normal(this)">
+                </p>
+                <p>
+                    <label for="password2">Confirm password:</label><br>
+                    <input type="password" id="password2" name="password2" required onfocus="highlight(this)" onblur="normal(this)">
+                </p>
+                <p>
+                    <input type="submit" class="button" value="Sign up">
+                    <input type="reset" class="button" value="Clear">
+                </p>
+            </form>
+            <p>Have an account? <a href="login.html">Login</a></p>
+        </section>
+
+        <p><a href="index.html">Back to home</a></p>
+    </div>
+
+</body>
+</html>
