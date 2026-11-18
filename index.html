@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="BookSwap: buy and sell used university books">
+    <title>BookSwap - Home</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <style type="text/css">
+        .box table { margin-top: 10px; }
+    </style>
+    <script src="js/script.js"></script>
+</head>
+<body>
+
+    <header id="top">
+        <h1>BookSwap</h1>
+        <nav>
+            Menu
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About us</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="signup.html">Sign up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="content">
+
+        <div class="banner">
+            <img src="images/banner.png" width="600" height="180" alt="BookSwap" usemap="#bookmap">
+            <map name="bookmap">
+                <area shape="rect" coords="440,120,580,165" href="about.html" alt="About us">
+            </map>
+        </div>
+
+        <ul>
+            <li><a href="#problem">The problem</a></li>
+            <li><a href="#books">Books for sale</a></li>
+        </ul>
+
+        <section id="problem" class="box">
+            <article>
+                <h2>The problem</h2>
+                <p>University books are expensive. Many students buy a new book for one course and never use it again.</p>
+                <h2>Our solution</h2>
+                <p>BookSwap lets students sell their old books to other students for a lower price.</p>
+                <h3>Benefits</h3>
+                <ol>
+                    <li>Save money</li>
+                    <li>Sell books you do not need</li>
+                    <li>Help other students</li>
+                </ol>
+            </article>
+        </section>
+
+        <section id="books" class="box">
+            <h2>Books for sale</h2>
+            <table>
+                <tr><th>Book</th><th>Condition</th><th>Price</th></tr>
+                <tr><td>Database Systems</td><td>Good</td><td>40 SR</td></tr>
+                <tr><td>Web Programming</td><td>Like new</td><td>35 SR</td></tr>
+                <tr><td>Computer Networks</td><td>Good</td><td>50 SR</td></tr>
+            </table>
+            <p class="note">Want to sell a book? <a href="signup.html">Sign up</a> first.</p>
+        </section>
+
+        <p><a href="#top">Back to top</a></p>
+    </div>
+
+</body>
+</html>
