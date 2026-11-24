@@ -64,7 +64,6 @@ h2 {
     color: #2e5e4e;
 }
 
-/* general class */
 .box {
     background-color: white;
     border: 2px solid #2e5e4e;
@@ -74,13 +73,11 @@ h2 {
     margin-bottom: 20px;
 }
 
-/* class for notes */
 .note {
     color: gray;
     font-style: italic;
 }
 
-/* project image */
 .banner {
     text-align: center;
     margin: 20px;
@@ -107,4 +104,25 @@ td {
     color: white;
     padding: 8px 15px;
     border-radius: 5px;
+}
+
+/* form fields and messages */
+.field {
+    border: 1px solid gray;
+    padding: 4px;
+}
+
+.error {
+    color: red;
+    font-size: 14px;
+}
+
+/* book of the day */
+.book-day {
+    text-align: center;
+}
+
+.book-day img {
+    border: 2px solid #2e5e4e;
+    box-shadow: 4px 4px 8px gray;
 }
