@@ -9,8 +9,94 @@
         .box table { margin-top: 10px; }
     </style>
     <script src="js/script.js"></script>
+    <script>
+        var bookNumber = 1;
+        var bookCount = 3;
+
+        function nextBook() {
+            var title;
+            var info;
+
+            bookNumber++;
+            if (bookNumber > 3) {
+                bookNumber = 1;
+            }
+
+            switch (bookNumber) {
+                case 1:
+                    title = "Database Systems";
+                    info = "Condition: Good - Price: 40 SR";
+                    break;
+                case 2:
+                    title = "Web Programming";
+                    info = "Condition: Like new - Price: 35 SR";
+                    break;
+                case 3:
+                    title = "Computer Networks";
+                    info = "Condition: Good - Price: 50 SR";
+                    break;
+            }
+
+            document.getElementById("bookPic").src = "images/book" + bookNumber + ".png";
+            document.getElementById("bookTitle").innerHTML = title;
+            document.getElementById("bookInfo").innerHTML = info;
+        }
+
+        function filterBooks() {
+            var choice = document.getElementById("condition").value;
+            var shown = 0;
+
+            for (var i = 1; i <= bookCount; i++) {
+                var condition = document.getElementById("cond" + i).innerHTML;
+
+                if (choice == "All" || choice == condition) {
+                    document.getElementById("row" + i).style.display = "table-row";
+                    shown++;
+                } else {
+                    document.getElementById("row" + i).style.display = "none";
+                }
+            }
+
+            document.getElementById("bookTotal").innerHTML = "Showing " + shown + " of " + bookCount + " books";
+        }
+
+        function addBook() {
+            var title = document.forms["sellForm"]["title"].value;
+            var condition = document.forms["sellForm"]["bookCondition"].value;
+            var price = document.forms["sellForm"]["price"].value;
+            var message = document.getElementById("sellMessage");
+
+            if (title == "" || price == "") {
+                message.innerHTML = "Please enter the book name and the price";
+                message.style.color = "red";
+                return false;
+            }
+
+            if (parseInt(price) <= 0) {
+                message.innerHTML = "The price must be more than 0";
+                message.style.color = "red";
+                return false;
+            }
+
+            bookCount++;
+            var row = "<tr id='row" + bookCount + "'>";
+            row += "<td>" + title + "</td>";
+            row += "<td id='cond" + bookCount + "'>" + condition + "</td>";
+            row += "<td>" + price + " SR</td></tr>";
+            document.getElementById("bookList").innerHTML += row;
+            document.getElementById("row" + bookCount).style.backgroundColor = "#fae3b8";
+
+            message.innerHTML = title + " was added to the list";
+            message.style.color = "green";
+            document.forms["sellForm"]["title"].value = "";
+            document.forms["sellForm"]["price"].value = "";
+
+            filterBooks();
+            return false;
+        }
+    </script>
 </head>
-<body>
+<body onload="showGreeting()">
 
     <header id="top">
         <h1>BookSwap</h1>
@@ -34,9 +120,13 @@
             </map>
         </div>
 
+        <h2 id="greeting" style="text-align: center;">Welcome to BookSwap!</h2>
+
         <ul>
             <li><a href="#problem">The problem</a></li>
+            <li><a href="#bookday">Book of the day</a></li>
             <li><a href="#books">Books for sale</a></li>
+            <li><a href="#sell">Sell a book</a></li>
         </ul>
 
         <section id="problem" class="box">
@@ -54,15 +144,64 @@
             </article>
         </section>
 
+        <section id="bookday" class="box book-day">
+            <h2>Book of the day</h2>
+            <img id="bookPic" src="images/book1.png" width="200" height="240" alt="Book of the day">
+            <h3 id="bookTitle">Database Systems</h3>
+            <p id="bookInfo">Condition: Good - Price: 40 SR</p>
+            <button class="button" onclick="nextBook()">Next book</button>
+        </section>
+
         <section id="books" class="box">
             <h2>Books for sale</h2>
+            <p>
+                <label for="condition">Show books in condition:</label>
+                <select id="condition">
+                    <option>All</option>
+                    <option>Like new</option>
+                    <option>Good</option>
+                    <option>Used</option>
+                </select>
+                <button class="button" onclick="filterBooks()">Filter</button>
+            </p>
             <table>
-                <tr><th>Book</th><th>Condition</th><th>Price</th></tr>
-                <tr><td>Database Systems</td><td>Good</td><td>40 SR</td></tr>
-                <tr><td>Web Programming</td><td>Like new</td><td>35 SR</td></tr>
-                <tr><td>Computer Networks</td><td>Good</td><td>50 SR</td></tr>
+                <thead>
+                    <tr><th>Book</th><th>Condition</th><th>Price</th></tr>
+                </thead>
+                <tbody id="bookList">
+                    <tr id="row1"><td>Database Systems</td><td id="cond1">Good</td><td>40 SR</td></tr>
+                    <tr id="row2"><td>Web Programming</td><td id="cond2">Like new</td><td>35 SR</td></tr>
+                    <tr id="row3"><td>Computer Networks</td><td id="cond3">Good</td><td>50 SR</td></tr>
+                </tbody>
             </table>
-            <p class="note">Want to sell a book? <a href="signup.html">Sign up</a> first.</p>
+            <p id="bookTotal" class="note">Showing 3 of 3 books</p>
+        </section>
+
+        <section id="sell" class="box">
+            <h2>Sell a book</h2>
+            <form name="sellForm" onsubmit="return addBook()">
+                <p>
+                    <label for="title">Book name:</label>
+                    <input type="text" id="title" name="title" class="field" onfocus="highlight(this)" onblur="normal(this)">
+                </p>
+                <p>
+                    <label for="bookCondition">Condition:</label>
+                    <select id="bookCondition" name="bookCondition">
+                        <option>Like new</option>
+                        <option>Good</option>
+                        <option>Used</option>
+                    </select>
+                </p>
+                <p>
+                    <label for="price">Price (SR):</label>
+                    <input type="number" id="price" name="price" class="field" onfocus="highlight(this)" onblur="normal(this)">
+                </p>
+                <p>
+                    <input type="submit" class="button" value="Add book">
+                </p>
+            </form>
+            <p id="sellMessage"></p>
+            <p class="note">New here? <a href="signup.html">Sign up</a> to create your account.</p>
         </section>
 
         <p><a href="#top">Back to top</a></p>
