@@ -10,17 +10,70 @@
     </style>
     <script src="js/script.js"></script>
     <script>
-        function signup() {
+        function validateSignup() {
             var name = document.forms["signupForm"]["name"].value;
-            var pass = document.forms["signupForm"]["password"].value;
-            var pass2 = document.forms["signupForm"]["password2"].value;
+            var email = document.forms["signupForm"]["email"].value;
+            var major = document.forms["signupForm"]["major"].value;
+            var password = document.forms["signupForm"]["password"].value;
+            var password2 = document.forms["signupForm"]["password2"].value;
+            var message = document.getElementById("signupMessage");
+            var errors = 0;
 
-            if (pass != pass2) {
-                window.alert("The passwords are not the same");
-                return false;
+            if (name == "") {
+                showError("name", "Please enter your name");
+                errors++;
+            } else {
+                showRight("name");
             }
-            window.alert("Welcome " + name + "! Your account is ready");
+
+            if (email == "") {
+                showError("email", "Please enter your email");
+                errors++;
+            } else {
+                showRight("email");
+            }
+
+            if (major == "") {
+                showError("major", "Please choose your major");
+                errors++;
+            } else {
+                showRight("major");
+            }
+
+            if (password == "") {
+                showError("password", "Please enter a password");
+                errors++;
+            } else {
+                showRight("password");
+            }
+
+            if (password2 == "") {
+                showError("password2", "Please confirm your password");
+                errors++;
+            } else if (password2 != password) {
+                showError("password2", "The passwords are not the same");
+                errors++;
+            } else {
+                showRight("password2");
+            }
+
+            if (errors == 0) {
+                message.innerHTML = "Welcome " + name + "! Your account is ready.";
+                message.style.color = "green";
+            } else {
+                message.innerHTML = "You have " + errors + " error(s), please fix them";
+                message.style.color = "red";
+            }
             return false;
+        }
+
+        function clearSignup() {
+            resetField("name");
+            resetField("email");
+            resetField("major");
+            resetField("password");
+            resetField("password2");
+            document.getElementById("signupMessage").innerHTML = "";
         }
     </script>
 </head>
@@ -50,36 +103,43 @@
 
         <section class="box">
             <h2 style="text-align: center;">Sign up</h2>
-            <form name="signupForm" onsubmit="return signup()">
+            <form name="signupForm" onsubmit="return validateSignup()" onreset="clearSignup()">
                 <p>
                     <label for="name">Name:</label><br>
-                    <input type="text" id="name" name="name" required onfocus="highlight(this)" onblur="normal(this)">
+                    <input type="text" id="name" name="name" class="field" onfocus="highlight(this)" onblur="normal(this)"><br>
+                    <span id="nameError" class="error"></span>
                 </p>
                 <p>
                     <label for="email">Email:</label><br>
-                    <input type="email" id="email" name="email" required onfocus="highlight(this)" onblur="normal(this)">
+                    <input type="email" id="email" name="email" class="field" onfocus="highlight(this)" onblur="normal(this)"><br>
+                    <span id="emailError" class="error"></span>
                 </p>
                 <p>
                     <label for="major">Major:</label><br>
-                    <select id="major" name="major">
+                    <select id="major" name="major" class="field">
+                        <option value="">-- Choose --</option>
                         <option>Information Systems</option>
                         <option>Computer Science</option>
                         <option>Information Technology</option>
-                    </select>
+                    </select><br>
+                    <span id="majorError" class="error"></span>
                 </p>
                 <p>
                     <label for="password">Password:</label><br>
-                    <input type="password" id="password" name="password" required onfocus="highlight(this)" onblur="normal(this)">
+                    <input type="password" id="password" name="password" class="field" onfocus="highlight(this)" onblur="normal(this)"><br>
+                    <span id="passwordError" class="error"></span>
                 </p>
                 <p>
                     <label for="password2">Confirm password:</label><br>
-                    <input type="password" id="password2" name="password2" required onfocus="highlight(this)" onblur="normal(this)">
+                    <input type="password" id="password2" name="password2" class="field" onfocus="highlight(this)" onblur="normal(this)"><br>
+                    <span id="password2Error" class="error"></span>
                 </p>
                 <p>
                     <input type="submit" class="button" value="Sign up">
                     <input type="reset" class="button" value="Clear">
                 </p>
             </form>
+            <p id="signupMessage" style="text-align: center;"></p>
             <p>Have an account? <a href="login.html">Login</a></p>
         </section>
 

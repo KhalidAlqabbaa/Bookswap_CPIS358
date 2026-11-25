@@ -10,10 +10,40 @@
     </style>
     <script src="js/script.js"></script>
     <script>
-        function login() {
+        function validateLogin() {
             var email = document.forms["loginForm"]["email"].value;
-            window.alert("Welcome back " + email);
+            var password = document.forms["loginForm"]["password"].value;
+            var message = document.getElementById("loginMessage");
+            var errors = 0;
+
+            if (email == "") {
+                showError("email", "Please enter your email");
+                errors++;
+            } else {
+                showRight("email");
+            }
+
+            if (password == "") {
+                showError("password", "Please enter your password");
+                errors++;
+            } else {
+                showRight("password");
+            }
+
+            if (errors == 0) {
+                message.innerHTML = "Welcome back " + email + "!";
+                message.style.color = "green";
+            } else {
+                message.innerHTML = "Please fix the errors above";
+                message.style.color = "red";
+            }
             return false;
+        }
+
+        function clearLogin() {
+            resetField("email");
+            resetField("password");
+            document.getElementById("loginMessage").innerHTML = "";
         }
     </script>
 </head>
@@ -43,20 +73,23 @@
 
         <section class="box">
             <h2 style="text-align: center;">Login</h2>
-            <form name="loginForm" onsubmit="return login()">
+            <form name="loginForm" onsubmit="return validateLogin()" onreset="clearLogin()">
                 <p>
                     <label for="email">Email:</label><br>
-                    <input type="email" id="email" name="email" required onfocus="highlight(this)" onblur="normal(this)">
+                    <input type="email" id="email" name="email" class="field" onfocus="highlight(this)" onblur="normal(this)"><br>
+                    <span id="emailError" class="error"></span>
                 </p>
                 <p>
                     <label for="password">Password:</label><br>
-                    <input type="password" id="password" name="password" required onfocus="highlight(this)" onblur="normal(this)">
+                    <input type="password" id="password" name="password" class="field" onfocus="highlight(this)" onblur="normal(this)"><br>
+                    <span id="passwordError" class="error"></span>
                 </p>
                 <p>
                     <input type="submit" class="button" value="Login">
                     <input type="reset" class="button" value="Clear">
                 </p>
             </form>
+            <p id="loginMessage" style="text-align: center;"></p>
             <p>No account? <a href="signup.html">Sign up</a></p>
         </section>
 
